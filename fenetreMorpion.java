@@ -64,13 +64,6 @@ public class fenetreMorpion extends JFrame {
         window.add(panel, BorderLayout.CENTER);
         window.add(monPanelEntree, BorderLayout.SOUTH);
 
-        /*for(int i = 0; i < 9; i++)
-        {
-            but[i] = new JButton();
-            panel.add(but[i]);
-        }
-		//but[4].add(new JLabel(new ImageIcon("TicTacToe.jpeg"))); 
-		*/
 		
         window.setVisible(true);  
         
@@ -78,24 +71,7 @@ public class fenetreMorpion extends JFrame {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     }
-	
-    public String getNomJoueur(int x){
-                String reponse="aa";
-                if (x==1){
-                	String nom1=champSaisieJoueur1.getText();
-                        reponse=nom1;
-                }if (x==2){
-                	String nom2=champSaisieJoueur2.getText();
-                        reponse=nom2;
-                }
-                return reponse;
-                
-         }
 
-
-    public static void main(String[]a){
-		new fenetreMorpion();
-	}	
     
-    }
+ }
 

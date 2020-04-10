@@ -28,8 +28,10 @@ public class ListenerBoard implements ActionListener{
 				inter.switchPlayers();
 			}
 		}
+		int N = inter.getBoardSize();
 		if(index[0] == 0 || index[0]==N-1 || index[1] == 0 ||index[1] == N-1){
 			inter.changeDimension();
+			inter.updatePane();
 		}
 		
 	}

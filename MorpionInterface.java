@@ -20,7 +20,7 @@ public class MorpionInterface extends JFrame{
 	private JLabel playerLabel;
 	private JLabel leftLabel;
     private JLabel rightLabel;
-    public int N=5; //taille initiale de la matrice
+    private int N=5; //taille initiale de la matrice
 	
 	//constructors
 	public MorpionInterface(){
@@ -36,10 +36,13 @@ public class MorpionInterface extends JFrame{
 		rightPanel.setPreferredSize(new Dimension(100,100));
 		leftPanel= new JPanel();
 		leftPanel.setPreferredSize(new Dimension(100,100));
+		
+		/*
 		center= new JPanel();
 		center.setPreferredSize(new Dimension(100,100));
 		center.setBackground(Color.BLUE);
 		center.add(pane);
+		*/
 		
 		newGame = new JButton("New Game");
 		newGame.addActionListener(new ListenerNewGame(this));
@@ -53,7 +56,9 @@ public class MorpionInterface extends JFrame{
 		rightPanel.add(rightLabel);
 		
 		newGame.setBackground(Color.GREEN);
+		//add listener
 		quit.setBackground(Color.RED);
+		//add listener
 		southPanel.add(newGame);
 		southPanel.add(quit);
 		
@@ -84,8 +89,8 @@ public class MorpionInterface extends JFrame{
 		return currentPlayer;
 	}
 	
-	public int[] getButtonPosition(JButton btn) {
-		return this.buttonIndexMap.get(btn);
+	public int getBoardSize(){
+		return board[0].length;
 	}
 	
 	public void resetBoard(){
@@ -118,6 +123,10 @@ public class MorpionInterface extends JFrame{
 		else {
 			currentPlayer="x";
 		}
+	}
+	
+	public int[] getButtonPosition(JButton btn) {
+		return this.buttonIndexMap.get(btn);
 	}
 	
 	public boolean checkColumn(int i, int j){
@@ -205,27 +214,93 @@ public class MorpionInterface extends JFrame{
 	public boolean isGameOver(int i, int j) {
 
 		if (checkColumn(i, j) || checkLine(i, j) || checkDiagonals(i, j) ) {		
+			if(checkColumn(i, j) == true){
+				System.out.println("game over column");
+			}
+			if(checkLine(i, j) == true){
+				System.out.println("game over line");
+			}
+			if(checkLine(i, j) == true){
+				System.out.println("game over diagonals");
+			}
 			return true;
 		}
 		else{
 			// we continue to play
 			return false;
+		}	
+	}
+	
+	public void changeDimension(){
+		//new board to save older board's informations
+		JButton[][] copy = new JButton [N+2][N+2];
+		// clear hashmap
+		buttonIndexMap.clear();
+		//sets the first line with empty cases (new line of the board)
+		int i=0;
+		int j=0; 
+		for(j = 0; j<N+2; j++){
+			JButton btn = new JButton();
+			btn.setFont(new Font(Font.SANS_SERIF,Font.BOLD,100));
+			copy[i][j] = btn;
+			buttonIndexMap.put(btn, new int[] {i, j});
+			btn.addActionListener(new ListenerBoard(this));
 		}
 		
+		//sets the last line with empty cases (new line of the board)
+		i=N+1; 
+		for(j = 0; j<N+2; j++){
+			JButton btn = new JButton();
+			btn.setFont(new Font(Font.SANS_SERIF,Font.BOLD,100));
+			copy[i][j] = btn;
+			buttonIndexMap.put(btn, new int[] {i, j});
+			btn.addActionListener(new ListenerBoard(this));
+		}
+		
+		//sets the first column with empty cases
+		j = 0;
+		for(i = 0; i<N+2; i++){
+			JButton btn = new JButton();
+			btn.setFont(new Font(Font.SANS_SERIF,Font.BOLD,100));
+			copy[i][j] = btn;
+			buttonIndexMap.put(btn, new int[] {i, j});
+			btn.addActionListener(new ListenerBoard(this));
+		}
+		
+		//sets the last column with emtpy cases
+		j = N+1;
+		for(i = 0; i<N+2; i++){
+			JButton btn = new JButton();
+			btn.setFont(new Font(Font.SANS_SERIF,Font.BOLD,100));
+			copy[i][j] = btn;
+			buttonIndexMap.put(btn, new int[] {i, j});
+			btn.addActionListener(new ListenerBoard(this));
+		}
+		
+		//saves the information from the older board starting from line 1 so we don't loose the new empty line
+		for(i=0; i<N; i++){
+			for(j=0; j<N; j++){
+				copy[i+1][j+1] = board[i][j];
+				// update index map
+				buttonIndexMap.put(copy[i+1][j+1], new int[] {i+1, j+1});
+			}
+		}	
+		board = copy;
+		N=N+2;
 	}
 	
-	private void changeDimension(){
-		//copie du board
-		JButton[][] copie = new JButton [N+2][N+2];
-		for(int i=0; i<N; i++){
-			for(int j = 0; j<N; j++){
-				copie[i][j]=board[i][j];
+	public void updatePane(){
+		support.remove(pane);
+		pane = new JPanel(new GridLayout(N, N));
+		
+		for(int i=0; i < N; i++){
+			for(int j=0; j < N; j++){
+				pane.add(board[i][j]);
 			}
 		}
-	
+		
+		support.add(pane, BorderLayout.CENTER);
 	}
-	
-	
 	
 
 }
