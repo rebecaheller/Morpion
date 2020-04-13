@@ -37,13 +37,6 @@ public class MorpionInterface extends JFrame{
 		leftPanel= new JPanel();
 		leftPanel.setPreferredSize(new Dimension(100,100));
 		
-		/*
-		center= new JPanel();
-		center.setPreferredSize(new Dimension(100,100));
-		center.setBackground(Color.BLUE);
-		center.add(pane);
-		*/
-		
 		newGame = new JButton("New Game");
 		newGame.addActionListener(new ListenerNewGame(this));
 		quit = new JButton("Quit");
@@ -56,9 +49,7 @@ public class MorpionInterface extends JFrame{
 		rightPanel.add(rightLabel);
 		
 		newGame.setBackground(Color.GREEN);
-		//add listener
 		quit.setBackground(Color.RED);
-		//add listener
 		southPanel.add(newGame);
 		southPanel.add(quit);
 		
@@ -76,11 +67,9 @@ public class MorpionInterface extends JFrame{
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.add(support);
 		setVisible(true);
-		board = new JButton[N][N];
 		buttonIndexMap = new HashMap<JButton, int[]>();
 		currentPlayer = "x";
 		initializeBoard();
-		
 	}
 	
 	
@@ -93,19 +82,12 @@ public class MorpionInterface extends JFrame{
 		return board[0].length;
 	}
 	
-	public void resetBoard(){
-		currentPlayer = "x";
-		for(int i = 0; i<N; i++){
-			for(int j = 0; j<N; j++){
-				board[i][j].setText("");
-			}
-		}
-	}
 	private void initializeBoard(){
+		board = new JButton[N][N];
 		for(int i = 0; i<N; i++){
 			for(int j = 0; j<N; j++){
 				JButton btn = new JButton();
-				btn.setFont(new Font(Font.SANS_SERIF,Font.BOLD,100));
+				btn.setFont(new Font(Font.SANS_SERIF,Font.BOLD, 100));
 				board[i][j] = btn;
 				buttonIndexMap.put(btn, new int[] {i, j});
 				btn.addActionListener(new ListenerBoard(this));
@@ -114,7 +96,6 @@ public class MorpionInterface extends JFrame{
 			
 		}
 	}
-	
 	
 	public void switchPlayers(){
 		if(currentPlayer.equals("x")){
@@ -214,15 +195,6 @@ public class MorpionInterface extends JFrame{
 	public boolean isGameOver(int i, int j) {
 
 		if (checkColumn(i, j) || checkLine(i, j) || checkDiagonals(i, j) ) {		
-			if(checkColumn(i, j) == true){
-				System.out.println("game over column");
-			}
-			if(checkLine(i, j) == true){
-				System.out.println("game over line");
-			}
-			if(checkLine(i, j) == true){
-				System.out.println("game over diagonals");
-			}
 			return true;
 		}
 		else{
@@ -292,14 +264,22 @@ public class MorpionInterface extends JFrame{
 	public void updatePane(){
 		support.remove(pane);
 		pane = new JPanel(new GridLayout(N, N));
-		
 		for(int i=0; i < N; i++){
 			for(int j=0; j < N; j++){
 				pane.add(board[i][j]);
 			}
 		}
-		
 		support.add(pane, BorderLayout.CENTER);
+	}
+	
+	public void resetBoard(){ // à refaire
+		currentPlayer = "x";
+		buttonIndexMap.clear(); // clear hashmap
+		N=5;
+		initializeBoard();
+		support.revalidate();
+		support.repaint();
+		updatePane();
 	}
 	
 

@@ -7,12 +7,9 @@ public class ListenerAccueil implements ActionListener{
 	private fenetreMorpion fen;
 	private String nomjoueur1;
 	private String nomjoueur2;
-
-
-public ListenerAccueil(fenetreMorpion fen){
+	
+	public ListenerAccueil(fenetreMorpion fen){
 		this.fen = fen;
-		
-
 	}
 	
 	public void actionPerformed(ActionEvent e){
@@ -33,6 +30,3 @@ public ListenerAccueil(fenetreMorpion fen){
 		}
 	}
 }
-	
-	
-
