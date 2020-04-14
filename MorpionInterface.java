@@ -11,6 +11,7 @@ public class MorpionInterface extends JFrame{
 	private final int objective=5; // number of elements to win
 	private JButton quit;
 	private JButton newGame;
+	private JButton menu;
 	private JPanel support;
 	private JPanel northPanel;
 	private JPanel southPanel;
@@ -39,6 +40,8 @@ public class MorpionInterface extends JFrame{
 		
 		newGame = new JButton("New Game");
 		newGame.addActionListener(new ListenerNewGame(this));
+		menu = new JButton("Menu");
+		menu.addActionListener(new ListenerMenu(this));
 		quit = new JButton("Quit");
 		quit.addActionListener(new ListenerQuit(this));
 		
@@ -52,6 +55,8 @@ public class MorpionInterface extends JFrame{
 		quit.setBackground(Color.RED);
 		southPanel.add(newGame);
 		southPanel.add(quit);
+		southPanel.add(menu);
+		
 		
 		playerLabel = new JLabel("Player");
 		northPanel.add(playerLabel);
