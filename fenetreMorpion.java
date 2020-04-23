@@ -14,15 +14,14 @@ public class fenetreMorpion extends JFrame {
     private JTextField champSaisieJoueur2;
 
     //pour le but du jeu
-    private JTextArea labelBut;
+    private JLabel labelBut;
    
     //un bouton pour jouer à 2
     private JButton btnJouer;
     
     //un bouton pour jouer contre l'ordinateur
     private JButton btnOrdi;
-    
-    
+        
     public fenetreMorpion(){
         super("Jeu Morpion");
 		
@@ -33,7 +32,7 @@ public class fenetreMorpion extends JFrame {
         labelJoueur2 = new JLabel("Joueur 2 : ");
         champSaisieJoueur2 = new JTextField("",10);
 
-        labelBut = new JTextArea(" C'est un Morpion infini! Quand vous vous rapprochez des bords, le tableau augmente \n" + " But: Aligner 5 pions ");
+        labelBut = new JLabel(" C'est un Morpion infini! Quand vous vous rapprochez des bords, le tableau augmente \n" + " But: Aligner 5 pions ", JLabel.CENTER);
 
         btnJouer = new JButton("Jouer a deux!");
         btnJouer.addActionListener(new ListenerAccueil(this));
@@ -47,14 +46,12 @@ public class fenetreMorpion extends JFrame {
         window.setSize(300,400);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-
         JPanel panel = new JPanel( new GridLayout(2, 1));
 		panel.setBackground(Color.white);
 		panel.add(new JLabel(new ImageIcon("TicTacToe (1).jpeg")));
         panel.add(labelBut);
         labelBut.setFont(new Font("Serif", Font.PLAIN, 21));
-	
-		
+			
 		JPanel monPanelEntree= new JPanel();
         
         monPanelEntree.setBackground(Color.yellow);
@@ -63,17 +60,14 @@ public class fenetreMorpion extends JFrame {
         monPanelEntree.add(labelJoueur2);
         monPanelEntree.add(champSaisieJoueur2);
         monPanelEntree.add(btnJouer)  ;
-        
-        
+            
         window.add(panel, BorderLayout.CENTER);
         window.add(monPanelEntree, BorderLayout.SOUTH);
 
-		
         window.setVisible(true);  
         
         window.setSize(300,400);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
     }
 	
 	public String getNomJoueur(int x){
@@ -87,7 +81,6 @@ public class fenetreMorpion extends JFrame {
 		}
 		return reponse;
 	}
-	
  }
     
 
