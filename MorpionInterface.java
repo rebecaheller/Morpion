@@ -22,11 +22,15 @@ public class MorpionInterface extends JFrame{
 	private JLabel leftLabel;
     private JLabel rightLabel;
     private int N=5; //taille initiale de la matrice
+    private String nom1;
+    private String nom2;
 	
 	//constructors
-	public MorpionInterface(){
+	public MorpionInterface(String name1,String name2){
 		
 		super();
+		nom1=name1;
+		nom2=name2;
 		this.support= new JPanel(new BorderLayout());
 		pane = new JPanel(new GridLayout(5,5));
 		northPanel= new JPanel();
@@ -38,10 +42,10 @@ public class MorpionInterface extends JFrame{
 		leftPanel= new JPanel();
 		leftPanel.setPreferredSize(new Dimension(100,100));
 		
-		newGame = new JButton("New Game");
-		newGame.addActionListener(new ListenerNewGame(this));
 		menu = new JButton("Menu");
 		menu.addActionListener(new ListenerMenu(this));
+		newGame = new JButton("New Game");
+		newGame.addActionListener(new ListenerNewGame(this));
 		quit = new JButton("Quit");
 		quit.addActionListener(new ListenerQuit(this));
 		
@@ -56,9 +60,7 @@ public class MorpionInterface extends JFrame{
 		southPanel.add(newGame);
 		southPanel.add(quit);
 		southPanel.add(menu);
-		
-		
-		playerLabel = new JLabel("Player");
+		playerLabel = new JLabel("Player: "+name1);
 		northPanel.add(playerLabel);
 		support.add(northPanel, BorderLayout.NORTH);
 		support.add(southPanel, BorderLayout.SOUTH);
@@ -105,9 +107,11 @@ public class MorpionInterface extends JFrame{
 	public void switchPlayers(){
 		if(currentPlayer.equals("x")){
 			currentPlayer="o";
+			playerLabel.setText("Player: "+nom2);
 		}
 		else {
 			currentPlayer="x";
+			playerLabel.setText("Player: "+nom1);
 		}
 	}
 	

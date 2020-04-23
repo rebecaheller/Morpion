@@ -4,21 +4,23 @@ import javax.swing.*;
 
 public class fenetreMorpion extends JFrame {
     private JFrame window = new JFrame();
-    //private JButton but[] = new JButton[9];
-    
-    //pour saisie le Joueur 1
+   
+    //pour la saisie du Joueur 1
     private JLabel labelJoueur1;
     private JTextField champSaisieJoueur1 ;
 
-    //pour la saisie le Joueur 2	
+    //pour la saisie du Joueur 2	
     private JLabel labelJoueur2;
     private JTextField champSaisieJoueur2;
 
     //pour le but du jeu
-    private JLabel labelBut;
+    private JTextArea labelBut;
    
-    //un bouton pour valider l'entree
+    //un bouton pour jouer à 2
     private JButton btnJouer;
+    
+    //un bouton pour jouer contre l'ordinateur
+    private JButton btnOrdi;
     
     
     public fenetreMorpion(){
@@ -31,11 +33,13 @@ public class fenetreMorpion extends JFrame {
         labelJoueur2 = new JLabel("Joueur 2 : ");
         champSaisieJoueur2 = new JTextField("",10);
 
-        labelBut = new JLabel("But: Aligner 5 pions", JLabel.CENTER);
+        labelBut = new JTextArea(" C'est un Morpion infini! Quand vous vous rapprochez des bords, le tableau augmente \n" + " But: Aligner 5 pions ");
 
-        btnJouer = new JButton("Jouer!!!");
+        btnJouer = new JButton("Jouer a deux!");
         btnJouer.addActionListener(new ListenerAccueil(this));
         
+        btnOrdi = new JButton("Jouer contre l'ordinateur!");
+        //btnOrdi.addActionListener(new ListenerAccueil(this));
         
         // ====== Organisation structurelle ======
           
@@ -83,7 +87,7 @@ public class fenetreMorpion extends JFrame {
 		}
 		return reponse;
 	}
-
+	
  }
     
 
