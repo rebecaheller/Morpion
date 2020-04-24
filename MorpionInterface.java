@@ -3,12 +3,12 @@ import java.awt.*;
 import java.util.HashMap;
 
 public class MorpionInterface extends JFrame{
-	//attributs
-	private final int objective=5; // number of elements to win
-	private final int N=5; //taille initiale de la matrice
-
-	public Board board; // set as public to avoid writting a getter
 	
+	// Attributs
+	private final int objective=5; // nombre de pions qu'il faut aligner pour gagner
+	private final int N=5; //taille initiale de la matrice
+	public Board board; // On declare comme public pour eviter d'utiliser des getters
+	private boolean singlePlayer; 
 	private JPanel pane;
 	private String currentPlayer;
 	private JButton quit;
@@ -26,12 +26,19 @@ public class MorpionInterface extends JFrame{
     private String nom1;
     private String nom2;
 	
-	//constructors
-	public MorpionInterface(String name1,String name2){
+	//Constructeur
+	public MorpionInterface(String name1, String name2){
 		
 		super();
 		nom1 = name1;
 		nom2 = name2;
+		currentPlayer = "x";
+		singlePlayer = false;
+		
+		if(nom2.equals("Ordinateur")){
+			singlePlayer = true;
+		}
+		
 		this.support = new JPanel(new BorderLayout());
 		pane = new JPanel(new GridLayout(N, N));
 		northPanel = new JPanel();
@@ -76,8 +83,7 @@ public class MorpionInterface extends JFrame{
 		this.add(support);
 		setVisible(true);
 		
-		currentPlayer = "x";
-		board = new Board(N, objective, this);
+		board = new Board(N, objective, this, singlePlayer);
 		updatePane();
 	}
 		
@@ -116,4 +122,10 @@ public class MorpionInterface extends JFrame{
 		support.repaint();
 		updatePane();
 	}
+	
+	public boolean doesComputerPlay(){
+		return singlePlayer;
+	}
+	
+
 }

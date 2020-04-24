@@ -20,7 +20,9 @@ public class fenetreMorpion extends JFrame {
     //un bouton pour jouer à 2
     private JButton btnJouer;
     
-    //un bouton pour jouer contre l'ordinateur
+    //pour jouer contre l'ordinateur
+    private JLabel labelOrdi;
+    private JTextField champSaisieOrdi;
     private JButton btnOrdi;
         
     public fenetreMorpion(){
@@ -35,12 +37,14 @@ public class fenetreMorpion extends JFrame {
 
 		
         labelBut = new JLabel("<html><center><font size=25>C'est un Morpion infini! Quand vous vous rapprochez des bords, le tableau augmente <br>"+"<B><U>But:</B></U>"+" Aligner "+"<font color=red>5 </font>"+"pions</font>",JLabel.CENTER);
-
+        
         btnJouer = new JButton("Jouer a deux!");
         btnJouer.addActionListener(new ListenerAccueil(this));
         
+        labelOrdi = new JLabel("Joueur unique: ");
+        champSaisieOrdi = new JTextField("",10);
         btnOrdi = new JButton("Jouer contre l'ordinateur!");
-        //btnOrdi.addActionListener(new ListenerAccueil(this));
+        btnOrdi.addActionListener(new ListenerOrdi(this));
         
         // ====== Organisation structurelle ======
           
@@ -62,6 +66,9 @@ public class fenetreMorpion extends JFrame {
         monPanelEntree.add(labelJoueur2);
         monPanelEntree.add(champSaisieJoueur2);
         monPanelEntree.add(btnJouer)  ;
+        monPanelEntree.add(labelOrdi);
+        monPanelEntree.add(champSaisieOrdi);
+        monPanelEntree.add(btnOrdi);
             
         window.add(panel, BorderLayout.CENTER);
         window.add(monPanelEntree, BorderLayout.SOUTH);
@@ -80,6 +87,10 @@ public class fenetreMorpion extends JFrame {
 		}if (x==2){
 			String nom2=champSaisieJoueur2.getText();
 			reponse=nom2;
+		}
+		if(x==3){
+			String nom3=champSaisieOrdi.getText();
+			reponse=nom3;
 		}
 		return reponse;
 	}

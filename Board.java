@@ -3,20 +3,25 @@ import java.awt.*;
 import java.util.HashMap;
 
 public class Board {
-	
+	// Attributs
 	private JButton[][] board;
 	private HashMap<JButton, int[]> buttonIndexMap;
 	private int N;
-	private final int objective; // number of elements to win
+	private boolean singlePlayer; 
+	private final int objective; // Nombre de pions qu'il faut aligner pour gagner
 	private final MorpionInterface inter;
 	
-	public Board(int N, int objective, MorpionInterface inter) {
+	// Constructeur
+	public Board(int N, int objective, MorpionInterface inter, boolean singlePlayer) {
 		this.N = N;
 		this.objective = objective;
 		this.inter = inter;
+		this.singlePlayer = singlePlayer;
 		buttonIndexMap = new HashMap<JButton, int[]>();
 		initializeBoard();
 	}
+	
+	// Méthodes
 	
 	private void initializeBoard(){
 		board = new JButton[N][N];
@@ -148,7 +153,7 @@ public class Board {
 		int j=0; 
 		for(j = 0; j<N+2; j++){
 			JButton btn = new JButton();
-			btn.setFont(new Font(Font.SANS_SERIF,Font.BOLD,350/N));
+			btn.setFont(new Font(Font.SANS_SERIF,Font.BOLD,350/N +10));
 			copy[i][j] = btn;
 			buttonIndexMap.put(btn, new int[] {i, j});
 			btn.addActionListener(new ListenerBoard(inter));
@@ -158,7 +163,7 @@ public class Board {
 		i=N+1; 
 		for(j = 0; j<N+2; j++){
 			JButton btn = new JButton();
-			btn.setFont(new Font(Font.SANS_SERIF,Font.BOLD,350/N));
+			btn.setFont(new Font(Font.SANS_SERIF,Font.BOLD,350/N +10));
 			copy[i][j] = btn;
 			buttonIndexMap.put(btn, new int[] {i, j});
 			btn.addActionListener(new ListenerBoard(inter));
@@ -168,7 +173,7 @@ public class Board {
 		j = 0;
 		for(i = 0; i<N+2; i++){
 			JButton btn = new JButton();
-			btn.setFont(new Font(Font.SANS_SERIF,Font.BOLD,350/N));
+			btn.setFont(new Font(Font.SANS_SERIF,Font.BOLD,350/N +10));
 			copy[i][j] = btn;
 			buttonIndexMap.put(btn, new int[] {i, j});
 			btn.addActionListener(new ListenerBoard(inter));
@@ -178,7 +183,7 @@ public class Board {
 		j = N+1;
 		for(i = 0; i<N+2; i++){
 			JButton btn = new JButton();
-			btn.setFont(new Font(Font.SANS_SERIF,Font.BOLD,350/N));
+			btn.setFont(new Font(Font.SANS_SERIF,Font.BOLD,350/N +10));
 			copy[i][j] = btn;
 			buttonIndexMap.put(btn, new int[] {i, j});
 			btn.addActionListener(new ListenerBoard(inter));
@@ -187,7 +192,7 @@ public class Board {
 		//saves the information from the older board starting from line 1 so we don't loose the new empty line
 		for(i=0; i<N; i++){
 			for(j=0; j<N; j++){
-				board[i][j].setFont(new Font(Font.SANS_SERIF,Font.BOLD, 350/N+2));
+				board[i][j].setFont(new Font(Font.SANS_SERIF,Font.BOLD, 350/N+2 +10));
 				copy[i+1][j+1] = board[i][j];
 				// update index map
 				buttonIndexMap.put(copy[i+1][j+1], new int[] {i+1, j+1});
@@ -196,5 +201,11 @@ public class Board {
 		board = copy;
 		N = N+2;
 	}
+	
+	public void computerPlays(){
+		
+		
+	}
+	
 }
 
