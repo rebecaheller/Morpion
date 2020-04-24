@@ -15,7 +15,7 @@ public class ListenerBoard implements ActionListener{
 		int[] index = inter.board.getButtonPosition(btn); // index[0]: i, index[1]: j
 		
 		if(!btn.getText().equals("")){
-			JOptionPane.showMessageDialog(null, "Case indispinible");
+			JOptionPane.showMessageDialog(null, "Case indisponible");
 		}
 		else{
 			btn.setText(inter.getCurrentPlayer());
