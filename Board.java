@@ -1,4 +1,4 @@
-import javax.swing.*;
+ import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 
@@ -23,7 +23,7 @@ public class Board {
 		for(int i = 0; i<N; i++){
 			for(int j = 0; j<N; j++){
 				JButton btn = new JButton();
-				btn.setFont(new Font(Font.SANS_SERIF,Font.BOLD, 100));
+				btn.setFont(new Font(Font.SANS_SERIF,Font.BOLD, 350/N)); //setFont définit la police
 				board[i][j] = btn;
 				buttonIndexMap.put(btn, new int[] {i, j});
 				btn.addActionListener(new ListenerBoard(inter));
@@ -148,7 +148,7 @@ public class Board {
 		int j=0; 
 		for(j = 0; j<N+2; j++){
 			JButton btn = new JButton();
-			btn.setFont(new Font(Font.SANS_SERIF,Font.BOLD,100));
+			btn.setFont(new Font(Font.SANS_SERIF,Font.BOLD,350/N));
 			copy[i][j] = btn;
 			buttonIndexMap.put(btn, new int[] {i, j});
 			btn.addActionListener(new ListenerBoard(inter));
@@ -158,7 +158,7 @@ public class Board {
 		i=N+1; 
 		for(j = 0; j<N+2; j++){
 			JButton btn = new JButton();
-			btn.setFont(new Font(Font.SANS_SERIF,Font.BOLD,100));
+			btn.setFont(new Font(Font.SANS_SERIF,Font.BOLD,350/N));
 			copy[i][j] = btn;
 			buttonIndexMap.put(btn, new int[] {i, j});
 			btn.addActionListener(new ListenerBoard(inter));
@@ -168,7 +168,7 @@ public class Board {
 		j = 0;
 		for(i = 0; i<N+2; i++){
 			JButton btn = new JButton();
-			btn.setFont(new Font(Font.SANS_SERIF,Font.BOLD,100));
+			btn.setFont(new Font(Font.SANS_SERIF,Font.BOLD,350/N));
 			copy[i][j] = btn;
 			buttonIndexMap.put(btn, new int[] {i, j});
 			btn.addActionListener(new ListenerBoard(inter));
@@ -178,7 +178,7 @@ public class Board {
 		j = N+1;
 		for(i = 0; i<N+2; i++){
 			JButton btn = new JButton();
-			btn.setFont(new Font(Font.SANS_SERIF,Font.BOLD,100));
+			btn.setFont(new Font(Font.SANS_SERIF,Font.BOLD,350/N));
 			copy[i][j] = btn;
 			buttonIndexMap.put(btn, new int[] {i, j});
 			btn.addActionListener(new ListenerBoard(inter));
@@ -187,6 +187,7 @@ public class Board {
 		//saves the information from the older board starting from line 1 so we don't loose the new empty line
 		for(i=0; i<N; i++){
 			for(j=0; j<N; j++){
+				board[i][j].setFont(new Font(Font.SANS_SERIF,Font.BOLD, 350/N+2));
 				copy[i+1][j+1] = board[i][j];
 				// update index map
 				buttonIndexMap.put(copy[i+1][j+1], new int[] {i+1, j+1});
