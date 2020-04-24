@@ -2,6 +2,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+
 public class fenetreMorpion extends JFrame {
     private JFrame window = new JFrame();
    
@@ -32,7 +33,8 @@ public class fenetreMorpion extends JFrame {
         labelJoueur2 = new JLabel("Joueur 2 : ");
         champSaisieJoueur2 = new JTextField("",10);
 
-        labelBut = new JLabel(" C'est un Morpion infini! Quand vous vous rapprochez des bords, le tableau augmente \n" + " But: Aligner 5 pions ", JLabel.CENTER);
+		
+        labelBut = new JLabel("<html><center><font size=25>C'est un Morpion infini! Quand vous vous rapprochez des bords, le tableau augmente <br>"+"<B><U>But:</B></U>"+" Aligner "+"<font color=red>5 </font>"+"pions</font>",JLabel.CENTER);
 
         btnJouer = new JButton("Jouer a deux!");
         btnJouer.addActionListener(new ListenerAccueil(this));
