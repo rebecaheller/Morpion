@@ -80,19 +80,18 @@ public class fenetreMorpion extends JFrame {
     }
 	
 	public String getNomJoueur(int x){
-		String reponse="aa";
 		if (x==1){
-			String nom1=champSaisieJoueur1.getText();
-			reponse=nom1;
-		}if (x==2){
-			String nom2=champSaisieJoueur2.getText();
-			reponse=nom2;
+			return champSaisieJoueur1.getText();
+		}else if (x==2){
+			return champSaisieJoueur2.getText();
 		}
-		if(x==3){
-			String nom3=champSaisieOrdi.getText();
-			reponse=nom3;
+		else if(x==3){
+			return champSaisieOrdi.getText();
 		}
-		return reponse;
+		else {
+			return "";
+		}
+		
 	}
  }
     

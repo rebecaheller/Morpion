@@ -19,8 +19,9 @@ public class ListenerAccueil implements ActionListener{
 		String nomJoueur1 = fen.getNomJoueur(x);
 		String nomJoueur2 = fen.getNomJoueur(y);
 		
-		if(nomjoueur1==null || nomJoueur1.equals("")|| nomJoueur2==null || nomJoueur2.equals("")){ //on met condition "" car au départ la case n'est jamais null
+		if( nomJoueur1==null || nomJoueur1.equals("")|| nomJoueur2==null || nomJoueur2.equals("")){ //on met condition "" car au départ la case n'est jamais null
 			JOptionPane.showMessageDialog(null, "Inserez le nom des joueurs!");
+		
 		}else{
 			new MorpionInterface(nomJoueur1, nomJoueur2);
 		}

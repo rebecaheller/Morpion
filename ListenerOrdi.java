@@ -8,22 +8,23 @@ public class ListenerOrdi implements ActionListener{
 	private fenetreMorpion fen;
 	private String nomUniqueJoueur;
 	private String ordinateur;
+	private MorpionInterface inter;
 	
 	public ListenerOrdi(fenetreMorpion fen){
 		this.fen = fen;
 	}
 	
 	public void actionPerformed(ActionEvent e){
-		int x = 3;
-		String nomUniqueJoueur = fen.getNomJoueur(x);
-		String nomJoueur2 = "Ordinateur";
+		int x = 3; // Quand x=3 on obtient le nom du single player mis dans le champ saisie ordi 
+		String ordi = "Ordinateur"; // L'ordi sera la joueur 1
+		String nomUniqueJoueur = fen.getNomJoueur(x); // Le single player sera le jouer 2
 		
-		System.out.println(nomUniqueJoueur);
 		if(nomUniqueJoueur==null || nomUniqueJoueur.equals("")){ //on met condition "" car au départ la case n'est jamais null
 			JOptionPane.showMessageDialog(null, "Inserez votre nom!");
+			
 		}else{
-			System.out.println("create interface");
-			new MorpionInterface(nomUniqueJoueur, nomJoueur2);
+			MorpionInterface inter = new MorpionInterface(ordi, nomUniqueJoueur);
+			inter.switchPlayers();
 		}
 	}
 }

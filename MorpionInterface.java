@@ -35,7 +35,7 @@ public class MorpionInterface extends JFrame{
 		currentPlayer = "x";
 		singlePlayer = false;
 		
-		if(nom2.equals("Ordinateur")){
+		if(nom1.equals("Ordinateur")){
 			singlePlayer = true;
 		}
 		

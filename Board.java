@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class Board {
 	// Attributs
-	private JButton[][] board;
+	public JButton[][] board;
 	private HashMap<JButton, int[]> buttonIndexMap;
 	private int N;
 	private boolean singlePlayer; 
@@ -34,6 +34,15 @@ public class Board {
 				btn.addActionListener(new ListenerBoard(inter));
 			}
 		}
+		// Si on joue contre l'ordinateur, il est le premier à jouer. Alors on initialize le tableau avec le pion X au milieu (position stratégique)
+		if(singlePlayer==true){
+			board[2][2].setText("X");
+			board[2][2].setFont(new Font(Font.SANS_SERIF,Font.BOLD, 350/N));
+		}
+	}
+	
+	public void changeText(String currentPlayer, int i, int j) {
+		board[i][j].setText(currentPlayer);
 	}
 	
 	public void resetBoard(int N) {
@@ -202,9 +211,12 @@ public class Board {
 		N = N+2;
 	}
 	
-	public void computerPlays(){
-		
-		
+	public int[] computerPlays(int i, int j){
+		// L'ordinateur est le jouer 1 = pion X
+		// board[i][j+1].setText("X");
+		// board[i][j+1].setFont(new Font(Font.SANS_SERIF,Font.BOLD,350/N +10));
+		// System.out.println("oi");
+		return new int[] {i+1, j+1};
 	}
 	
 }
