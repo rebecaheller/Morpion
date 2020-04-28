@@ -13,8 +13,8 @@ public class ListenerAccueil implements ActionListener{
 	}
 	
 	public void actionPerformed(ActionEvent e){
-		int x = 1;
-		int y = 2;
+		int x = 1; // Quand X=1, on obtient le nom du joueur 1
+		int y = 2; // Quand X=2, on obtient le nom du joueur 2
 		
 		String nomJoueur1 = fen.getNomJoueur(x);
 		String nomJoueur2 = fen.getNomJoueur(y);

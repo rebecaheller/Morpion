@@ -24,7 +24,7 @@ public class ListenerOrdi implements ActionListener{
 			
 		}else{
 			MorpionInterface inter = new MorpionInterface(ordi, nomUniqueJoueur);
-			inter.switchPlayers();
+			inter.switchPlayers(); //comme ça le board est initilisé avec le premier mouvement de l'ordi et le jeu commence avec le joueur 2
 		}
 	}
 }

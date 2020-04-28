@@ -5,7 +5,7 @@ import java.util.HashMap;
 public class Board {
 	// Attributs
 	public JButton[][] board;
-	private HashMap<JButton, int[]> buttonIndexMap;
+	private HashMap<JButton, int[]> buttonIndexMap; // Hashmap de boutons qui a comme value (valeur) les indices des positions des boutons
 	private int N;
 	private boolean singlePlayer; 
 	private final int objective; // Nombre de pions qu'il faut aligner pour gagner
@@ -63,6 +63,7 @@ public class Board {
 		return buttonIndexMap.get(btn);
 	}
 	
+	// Vérifie si on a 5 pions alignés dans une colonne. On fixe j et on fait varier i. (i et j obtenus avec le hashmap des positions des boutons) 
 	private boolean checkColumn(int i, int j){
 		int k = i;
 		int counter = 0; 
@@ -83,6 +84,7 @@ public class Board {
 		else{ return false;}
 	}
 	
+	// Vérifie si on a 5 pions alignés dans une ligne.  On fixe i et on fait varier j. (i et j obtenus avec le hashmap des positions des boutons) 
 	private boolean checkLine(int i, int j){
 		int k = j; 
 		int counter=0;
@@ -92,7 +94,7 @@ public class Board {
 			k--;
 			counter++;
 		}
-		k = j + 1;
+		k = j + 1; // On adicione 1 pour ne pas compter deux fois la même position
 		while(k<N && board[i][k].getText() == player && counter < objective){
 			k++;
 			counter++;
@@ -103,17 +105,18 @@ public class Board {
 		else{ return false;}
 	}
 	
+	// Vérifie si on a 5 pions alignés dans une diagonale/antidiagonale. (i et j obtenus avec le hashmap des positions des boutons) 
 	private boolean checkDiagonals(int i, int j){
 		int counter=0;
+		int k=0;
 		String player = board[i][j].getText();
 		
-		int k=0;
-		//antidiagonal
+		// Antidiagonales:
 		while( (i+k)<N && (j-k)>=0 && board[i+k][j-k].getText() == player && counter < objective){
 			counter++;
 			k++;
 		}
-		k = 1;
+		k = 1; // On adicione 1 pour ne pas compter deux fois la même position 
 		while( (i-k)>=0 && (j+k)<N && board[i-k][j+k].getText() == player && counter < objective){
 			counter++;
 			k++;
@@ -122,7 +125,8 @@ public class Board {
 			return true;
 		}
 		
-		// diagonal
+		// Diagonales:
+		// On doit reinitialiser les variables 
 		k=0;
 		counter = 0;
 		while( (i+k)<N && (j+k)<N && board[i+k][j+k].getText() == player && counter < objective){
@@ -140,35 +144,36 @@ public class Board {
 		else{return false;}	
 	}
 	
+	// On vérifie si le jeu est fini: si il y a 5 pions sur une ligne, colonne, diagonale ou antidiagonale 
 	public boolean isGameOver(int i, int j) {
 	
 		if (checkColumn(i, j) || checkLine(i, j) || checkDiagonals(i, j) ) {		
 			return true;
 		}
 		else{
-			// we continue to play
+			// On continue à jouer
 			return false;
 		}	
 	}
 	
+	// Cette methode adicone deux nouvelles lignes et deux nouvelles colonnes vides à notre ancien tableau
 	public void changeDimension(){
-		//new board to save older board's informations
-		JButton[][] copy = new JButton [N+2][N+2];
-		// clear hashmap
-		buttonIndexMap.clear();
 		
-		//sets the first line with empty cases (new line of the board)
+		JButton[][] copy = new JButton [N+2][N+2]; // On crée un tableau pour copier l'ancien
+		buttonIndexMap.clear(); // efface le hashmap
+		
+		// Initialise la première ligne du tableau avec boutons vides (nouvelle ligne). On fixe i et on varie j.
 		int i=0;
 		int j=0; 
 		for(j = 0; j<N+2; j++){
 			JButton btn = new JButton();
-			btn.setFont(new Font(Font.SANS_SERIF,Font.BOLD,350/N +10));
+			btn.setFont(new Font(Font.SANS_SERIF,Font.BOLD, 350/N + 10));
 			copy[i][j] = btn;
 			buttonIndexMap.put(btn, new int[] {i, j});
 			btn.addActionListener(new ListenerBoard(inter));
 		}
 		
-		//sets the last line with empty cases (new line of the board)
+		// Initialise la dernière ligne du tableau avec boutons vides (nouvelle ligne). On fixe i et on varie j.
 		i=N+1; 
 		for(j = 0; j<N+2; j++){
 			JButton btn = new JButton();
@@ -178,7 +183,7 @@ public class Board {
 			btn.addActionListener(new ListenerBoard(inter));
 		}
 		
-		//sets the first column with empty cases
+		// Initialise la première colonne du tableau avec boutons vides (nouvelle colonne). On fixe j et on varie i.
 		j = 0;
 		for(i = 0; i<N+2; i++){
 			JButton btn = new JButton();
@@ -188,7 +193,7 @@ public class Board {
 			btn.addActionListener(new ListenerBoard(inter));
 		}
 		
-		//sets the last column with emtpy cases
+		// Initialise la dernière colonne du tableau avec boutons vides (nouvelle colonne). On fixe j et on varie i.
 		j = N+1;
 		for(i = 0; i<N+2; i++){
 			JButton btn = new JButton();
@@ -198,12 +203,12 @@ public class Board {
 			btn.addActionListener(new ListenerBoard(inter));
 		}
 		
-		//saves the information from the older board starting from line 1 so we don't loose the new empty line
+		// Enregistre l'information de l'ancien tableau, ça commence dans la position 1,1 pour ne pas perdre les nouveux ajouts	
 		for(i=0; i<N; i++){
 			for(j=0; j<N; j++){
 				board[i][j].setFont(new Font(Font.SANS_SERIF,Font.BOLD, 350/N+2 +10));
 				copy[i+1][j+1] = board[i][j];
-				// update index map
+				// Actualisation du hashmap:
 				buttonIndexMap.put(copy[i+1][j+1], new int[] {i+1, j+1});
 			}
 		}	
@@ -211,12 +216,18 @@ public class Board {
 		N = N+2;
 	}
 	
-	public int[] computerPlays(int i, int j){
-		// L'ordinateur est le jouer 1 = pion X
-		// board[i][j+1].setText("X");
-		// board[i][j+1].setFont(new Font(Font.SANS_SERIF,Font.BOLD,350/N +10));
-		// System.out.println("oi");
-		return new int[] {i+1, j+1};
+	public int[] computerPlays(boolean easy){
+		
+		if (easy == true) { // Si on joue le mode facile (positions aléatoires)
+			return new int[] {0, 0};
+		}
+		else {
+			// 1. if about to win the game, win it (:
+			// 2. prevent your opponent to win the game
+			// 3. expand my best partial solution
+			
+			return new int[] {0, 0};
+		}
 	}
 	
 }

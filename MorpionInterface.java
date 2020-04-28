@@ -87,7 +87,7 @@ public class MorpionInterface extends JFrame{
 		updatePane();
 	}
 		
-	//methods
+	//methodes
 	public String getCurrentPlayer(){
 		return currentPlayer;
 	}
@@ -103,6 +103,7 @@ public class MorpionInterface extends JFrame{
 		}
 	}
 	
+	// Quand on change la dimension du tableau, il faut effacer le paneau et le reafficher
 	public void updatePane(){
 		support.remove(pane);
 		int boardDimension = board.getBoardSize();
