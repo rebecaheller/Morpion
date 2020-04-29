@@ -64,64 +64,64 @@ public class Board {
 	}
 	
 	// Vérifie si on a 5 pions alignés dans une colonne. On fixe j et on fait varier i. (i et j obtenus avec le hashmap des positions des boutons) 
-	private boolean checkColumn(int i, int j){
+	private boolean checkColumn(int i, int j, int l){
 		int k = i;
 		int counter = 0; 
 		String player = board[i][j].getText();
 		
-		while(k>=0 && board[k][j].getText() == player && counter < objective){
+		while(k>=0 && board[k][j].getText() == player && counter < l){
 			k--;
 			counter++;
 		}
 		k = i + 1;
-		while(k<N && board[k][j].getText() == player && counter < objective){
+		while(k<N && board[k][j].getText() == player && counter < l){
 			k++;
 			counter++;
 		}
-		if( counter == objective){
+		if( counter == l){
 			return true;
 		}
 		else{ return false;}
 	}
 	
 	// Vérifie si on a 5 pions alignés dans une ligne.  On fixe i et on fait varier j. (i et j obtenus avec le hashmap des positions des boutons) 
-	private boolean checkLine(int i, int j){
+	private boolean checkLine(int i, int j, int l){
 		int k = j; 
 		int counter=0;
 		String player = board[i][j].getText();
 		
-		while(k >= 0 && board[i][k].getText() == player && counter < objective){
+		while(k >= 0 && board[i][k].getText() == player && counter < l){
 			k--;
 			counter++;
 		}
 		k = j + 1; // On adicione 1 pour ne pas compter deux fois la même position
-		while(k<N && board[i][k].getText() == player && counter < objective){
+		while(k<N && board[i][k].getText() == player && counter < l){
 			k++;
 			counter++;
 		}
-		if( counter == objective){
+		if( counter == l){
 			return true;
 		}
 		else{ return false;}
 	}
 	
 	// Vérifie si on a 5 pions alignés dans une diagonale/antidiagonale. (i et j obtenus avec le hashmap des positions des boutons) 
-	private boolean checkDiagonals(int i, int j){
+	private boolean checkDiagonals(int i, int j, int l){
 		int counter=0;
 		int k=0;
 		String player = board[i][j].getText();
 		
 		// Antidiagonales:
-		while( (i+k)<N && (j-k)>=0 && board[i+k][j-k].getText() == player && counter < objective){
+		while( (i+k)<N && (j-k)>=0 && board[i+k][j-k].getText() == player && counter < l){
 			counter++;
 			k++;
 		}
 		k = 1; // On adicione 1 pour ne pas compter deux fois la même position 
-		while( (i-k)>=0 && (j+k)<N && board[i-k][j+k].getText() == player && counter < objective){
+		while( (i-k)>=0 && (j+k)<N && board[i-k][j+k].getText() == player && counter < l){
 			counter++;
 			k++;
 		}
-		if( counter == objective){
+		if( counter == l){
 			return true;
 		}
 		
@@ -129,16 +129,16 @@ public class Board {
 		// On doit reinitialiser les variables 
 		k=0;
 		counter = 0;
-		while( (i+k)<N && (j+k)<N && board[i+k][j+k].getText() == player && counter < objective){
+		while( (i+k)<N && (j+k)<N && board[i+k][j+k].getText() == player && counter < l){
 			counter++;
 			k++;
 		}
 		k = 1;
-		while( (i-k)>=0 && (j-k)>=0 && board[i-k][j-k].getText() == player && counter < objective){
+		while( (i-k)>=0 && (j-k)>=0 && board[i-k][j-k].getText() == player && counter < l){
 			counter++;
 			k++;
 		}
-		if( counter == objective){
+		if( counter == l){
 			return true;
 		}
 		else{return false;}	
@@ -146,8 +146,8 @@ public class Board {
 	
 	// On vérifie si le jeu est fini: si il y a 5 pions sur une ligne, colonne, diagonale ou antidiagonale 
 	public boolean isGameOver(int i, int j) {
-	
-		if (checkColumn(i, j) || checkLine(i, j) || checkDiagonals(i, j) ) {		
+		int l=5;
+		if (checkColumn(i, j, l) || checkLine(i, j, l) || checkDiagonals(i, j, l) ) {		
 			return true;
 		}
 		else{
