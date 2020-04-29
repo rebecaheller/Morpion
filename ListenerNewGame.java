@@ -12,6 +12,7 @@ public class ListenerNewGame implements ActionListener{
 	
 	public void actionPerformed(ActionEvent e){
 		inter.resetGame();
+		
 	}
     
 }

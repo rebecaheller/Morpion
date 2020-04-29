@@ -26,9 +26,10 @@ public class ListenerBoard implements ActionListener{
 			
 			//Si on joue contre l'ordinateur
 			if(inter.doesComputerPlay()){
-				index = inter.board.computerPlays(true);
-				play(inter.getCurrentPlayer(), index[0], index[1]);
-				inter.switchPlayers();				
+				int[] positionToPlay;
+				positionToPlay = inter.board.computerPlays(false);
+				play(inter.getCurrentPlayer(), positionToPlay[0], positionToPlay[1]);
+				inter.switchPlayers();		
 			}
 
 		}
@@ -41,7 +42,7 @@ public class ListenerBoard implements ActionListener{
 		
 		// On vérifie si quelqu'un a gagné après l'appui du bouton
 		if (inter.board.isGameOver(i, j)) {
-			JOptionPane.showMessageDialog(null,"Joueur " + currentPlayer + " a gagne");
+			JOptionPane.showMessageDialog(null, inter.getPlayerName() + " a gagne");
 			inter.resetGame();
 		}							
 		

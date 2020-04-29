@@ -11,6 +11,7 @@ public class MorpionInterface extends JFrame{
 	private boolean singlePlayer; 
 	private JPanel pane;
 	private String currentPlayer;
+	private String nameCurrentPlayer;
 	private JButton quit;
 	private JButton newGame;
 	private JButton menu;
@@ -33,6 +34,7 @@ public class MorpionInterface extends JFrame{
 		nom1 = name1;
 		nom2 = name2;
 		currentPlayer = "x";
+		nameCurrentPlayer=nom1;
 		singlePlayer = false;
 		
 		if(nom1.equals("Ordinateur")){
@@ -96,13 +98,25 @@ public class MorpionInterface extends JFrame{
 		if(currentPlayer.equals("x")){
 			currentPlayer="o";
 			playerLabel.setText("Player: "+nom2);
+			nameCurrentPlayer=nom2;
 		}
 		else {
 			currentPlayer="x";
 			playerLabel.setText("Player: "+nom1);
+			nameCurrentPlayer=nom1;
 		}
 	}
-	
+	public String getPlayerName(){
+		return nameCurrentPlayer;
+	}
+	public void switchNames(){
+		if(nameCurrentPlayer.equals(nom1)){
+			nameCurrentPlayer=nom2;
+		}
+		else{
+			nameCurrentPlayer=nom1;
+		}
+	}
 	// Quand on change la dimension du tableau, il faut effacer le paneau et le reafficher
 	public void updatePane(){
 		support.remove(pane);
@@ -118,6 +132,11 @@ public class MorpionInterface extends JFrame{
 	
 	public void resetGame(){
 		currentPlayer = "x";
+		nameCurrentPlayer=nom1;
+		if(singlePlayer==true){
+			switchPlayers();
+			switchNames();
+		}
 		board.resetBoard(N);
 		support.revalidate();
 		support.repaint();
