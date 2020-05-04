@@ -8,6 +8,7 @@ public class MorpionInterface extends JFrame{
 	private final int objective=5; // nombre de pions qu'il faut aligner pour gagner
 	private final int N=5; //taille initiale de la matrice
 	public Board board; // On declare comme public pour eviter d'utiliser des getters
+	public Computer computer;
 	private boolean singlePlayer; 
 	private JPanel pane;
 	private String currentPlayer;
@@ -87,6 +88,10 @@ public class MorpionInterface extends JFrame{
 		
 		board = new Board(N, objective, this, singlePlayer);
 		updatePane();
+		
+		if (singlePlayer) {
+			computer = new Computer(board);
+		}
 	}
 		
 	//methodes

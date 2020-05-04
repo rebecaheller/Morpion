@@ -27,7 +27,7 @@ public class ListenerBoard implements ActionListener{
 			//Si on joue contre l'ordinateur
 			if(inter.doesComputerPlay()){
 				int[] positionToPlay;
-				positionToPlay = inter.board.computerPlays(false);
+				positionToPlay = inter.computer.computerPlays(false);
 				play(inter.getCurrentPlayer(), positionToPlay[0], positionToPlay[1]);
 				inter.switchPlayers();		
 			}

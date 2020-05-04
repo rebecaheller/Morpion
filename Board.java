@@ -12,7 +12,7 @@ public class Board {
 	private boolean singlePlayer; 
 	private final int objective; // Nombre de pions qu'il faut aligner pour gagner
 	private final MorpionInterface inter;
-	
+		
 	// Constructeur
 	public Board(int N, int objective, MorpionInterface inter, boolean singlePlayer) {
 		this.N = N;
@@ -61,12 +61,16 @@ public class Board {
 		return N;
 	}
 	
+	public int getObjective() {
+		return objective;
+	}
+	
 	public int[] getButtonPosition(JButton btn) {
 		return buttonIndexMap.get(btn);
 	}
 	
 	// Vérifie si on a 5 pions alignés dans une colonne. On fixe j et on fait varier i. (i et j obtenus avec le hashmap des positions des boutons) 
-	private int counterColumn(int i, int j){
+	public int counterColumn(int i, int j){
 		int k = i;
 		int counter = 0; 
 		String player = board[i][j].getText();
@@ -84,7 +88,7 @@ public class Board {
 	}
 	
 	// Vérifie si on a 5 pions alignés dans une ligne.  On fixe i et on fait varier j. (i et j obtenus avec le hashmap des positions des boutons) 
-	private int counterLine(int i, int j){
+	public int counterLine(int i, int j){
 		int k = j; 
 		int counter=0;
 		String player = board[i][j].getText();
@@ -103,7 +107,7 @@ public class Board {
 	
 	// Vérifie si on a 5 pions alignés dans une diagonale/antidiagonale. (i et j obtenus avec le hashmap des positions des boutons) 
 	//L répresente la longueur qu'on cherche
-	private int counterDiagonal(int i, int j){
+	public int counterDiagonal(int i, int j){
 		int counter=0;
 		int k=0;
 		String player = board[i][j].getText();
@@ -122,7 +126,7 @@ public class Board {
 		return counter;	
 	}
 	
-	private int counterAntiDiagonal(int i, int j) {
+	public int counterAntiDiagonal(int i, int j) {
 		int counter=0;
 		int k=0;
 		String player = board[i][j].getText();
@@ -210,176 +214,5 @@ public class Board {
 		}	
 		board = copy;
 		N = N+2;
-	}
-	
-	private int emptyExtremitiesLine(int i, int j){
-		int emptyCases = 0;
-		int k = j;
-		
-		while (k >= 0 && board[i][k].getText() == "o") {
-			k--;
-		}
-		if (k >= 0 && board[i][k].getText() != "x") {
-			emptyCases++;
-		}
-		k = j;
-		while (k < N && board[i][k].getText() == "o") {
-			k++;
-		}
-		if (k < N && board[i][k].getText() != "x") {
-			emptyCases++;
-		}
-		return emptyCases;
-	}
-	
-	private int emptyExtremitiesColumn(int i, int j){
-		int emptyCases = 0;
-		int k = i;
-		
-		while (k >= 0 && board[k][j].getText() == "o") {
-			k--;
-		}
-		if (k >= 0 && board[k][j].getText() != "x") {
-			emptyCases++;
-		}
-		k = i;
-		while (k < N && board[k][j].getText() == "o") {
-			k++;
-		}
-		if (k < N && board[k][j].getText() != "x") {
-			emptyCases++;
-		}
-		return emptyCases;
-	}
-	
-	private int emptyExtremitiesDiagonal(int i, int j){
-		int emptyCases = 0;
-		
-		int k = 1;
-		while (i-k >= 0 && j-k >= 0 && board[i-k][j-k].getText() == "o") {
-			k++;
-		}
-		if (i-k >= 0 && j-k >= 0 && board[i-k][j-k].getText() != "x") {
-			emptyCases++;
-		}
-		k = 1;
-		while (i+k < N && j+k < N && board[i+k][j+k].getText() == "o") {
-			k++;
-		}
-		if (i+k < N && j+k < N && board[i+k][j+k].getText() != "x") {
-			emptyCases++;
-		}
-		return emptyCases;
-	}
-	
-	private int emptyExtremitiesAntiDiagonal(int i, int j){
-		int emptyCases = 0;
-		
-		int k = 1;
-		while (i-k >= 0 && j+k < N && board[i-k][j+k].getText() == "o") {
-			k++;
-		}
-		if (i-k >= 0 && j+k < N && board[i-k][j+k].getText() != "x") {
-			emptyCases++;
-		}
-		k = 1;
-		while (i+k < N && j-k >= 0 && board[i+k][j-k].getText() == "o") {
-			k++;
-		}
-		if (i+k < N && j-k >= 0 && board[i+k][j-k].getText() != "x") {
-			emptyCases++;
-		}
-		return emptyCases;
-	}
-
-	public int[] computerPlays(boolean easy){
-		
-		if (easy == true) { // Si on joue le mode facile (positions aléatoires)
-			return new int[] {0, 0};
-		}
-		else {
-			// 1. if about to win the game, win it (:
-			// 2. prevent your opponent to win the game
-			// 3. expand my best partial solution
-			
-			int[] indexMaxSolution = new int[] {0, 0}; 
-			int lengthMaxSolution = 0;
-			
-			for (int i=0; i < N; i++) {
-				for (int j=0; j < N; j++) {
-					
-					if (board[i][j].getText() == "") {
-						// essayer de gagner
-						board[i][j].setText("x");
-						
-						Integer[] counters = new Integer[4];
-						counters[0] = counterLine(i, j);
-						counters[1] = counterColumn(i, j);
-						counters[2] = counterDiagonal(i, j);
-						counters[3] = counterAntiDiagonal(i, j);
-						
-						int maxCounter = Collections.max(Arrays.asList(counters));
-						
-						if (lengthMaxSolution < maxCounter) {
-							lengthMaxSolution = maxCounter;
-							indexMaxSolution = new int[] {i, j};
-						}
-												
-						if (maxCounter >= objective) {
-							board[i][j].setText("");
-							// retourne la position qui nous fait gagner le jeu
-							return new int[] {i, j};
-						}
-						else {
-							// prevenir l'autre joueur de gagner 
-							board[i][j].setText("o");
-							if (counterLine(i, j) >= objective || counterColumn(i, j) >= objective || counterDiagonal(i, j) >= objective || counterAntiDiagonal(i, j) >= objective) {
-								board[i][j].setText("");
-								// retourne la position qui evite l'autre joueur de gagner 
-								return new int[] {i, j};
-							}
-							else {
-								// prevenir l'autre joueur d'arriver à faire 4 avec extremités libres
-								
-								if (counterLine(i, j) == objective - 1) {
-									System.out.println(counterLine(i, j));
-									System.out.println(emptyExtremitiesLine(i, j));
-									System.out.println("");
-									
-									if (emptyExtremitiesLine(i, j) == 2) {
-										board[i][j].setText("");
-										return new int[] {i, j};
-									}
-								}
-								if (counterColumn(i, j) == objective - 1) {
-									if (emptyExtremitiesColumn(i, j) == 2) {
-										board[i][j].setText("");
-										return new int[] {i, j};
-									}
-								}
-								if (counterDiagonal(i, j) == objective - 1) {
-									if (emptyExtremitiesDiagonal(i, j) == 2) {
-										board[i][j].setText("");
-										return new int[] {i, j};
-									}
-								}
-								if (counterAntiDiagonal(i, j) == objective - 1) {
-									if (emptyExtremitiesAntiDiagonal(i, j) == 2) {
-										board[i][j].setText("");
-										return new int[] {i, j};
-									}
-								}
-							}
-						}
-						board[i][j].setText("");
-					}	
-				}		
-			}	
-			
-			// grandir la plus grande solution de "x"
-			return indexMaxSolution;
-		}
-	}
-	
+	}			
 }
-
