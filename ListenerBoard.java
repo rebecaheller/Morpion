@@ -27,7 +27,7 @@ public class ListenerBoard implements ActionListener{
 			//Si on joue contre l'ordinateur
 			if(inter.doesComputerPlay()){
 				int[] positionToPlay;
-				positionToPlay = inter.computer.computerPlays(false);
+				positionToPlay = inter.computer.computerPlays();
 				play(inter.getCurrentPlayer(), positionToPlay[0], positionToPlay[1]);
 				inter.switchPlayers();		
 			}
@@ -44,6 +44,7 @@ public class ListenerBoard implements ActionListener{
 		if (inter.board.isGameOver(i, j)) {
 			JOptionPane.showMessageDialog(null, inter.getPlayerName() + " a gagne");
 			inter.resetGame();
+			
 		}							
 		
 		//On vérifie si on est sur l'un des bords et si personne n'a gagné. Alors on augmente le tableau

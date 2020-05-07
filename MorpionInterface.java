@@ -138,10 +138,6 @@ public class MorpionInterface extends JFrame{
 	public void resetGame(){
 		currentPlayer = "x";
 		nameCurrentPlayer=nom1;
-		if(singlePlayer==true){
-			switchPlayers();
-			switchNames();
-		}
 		board.resetBoard(N);
 		support.revalidate();
 		support.repaint();

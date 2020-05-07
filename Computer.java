@@ -8,15 +8,15 @@ public class Computer{
 
 	// Attributs
 	private Board board;
-	private int [] indexMaxSolution;
-	private int lengthMaxSolution;
+	private int [] indexMaxSolution; // Un tableau qui va garder la position de la solution maximale de l'ordinateur
+	private int lengthMaxSolution; // Taille de la solution maximale
 	
 	
 	//Constructeur
 	public Computer(Board board){
 		this.board=board;
 		indexMaxSolution = new int[] {0, 0}; 
-		lengthMaxSolution=0;
+		lengthMaxSolution=0; // Initialement il n'y a acune solution, donc la longueur est 0
 	}
 	
 	// Methodes
@@ -109,28 +109,29 @@ public class Computer{
 		return emptyCases;
 	}
 	
+	// Actualise la position de la solution maximale à partir d'un parametre maxCounter
 	private void updateMaxSolution(int maxCounter, int i, int j){
 		if (lengthMaxSolution < maxCounter) {
 			lengthMaxSolution = maxCounter;
 			indexMaxSolution = new int[] {i, j};
 		}
 	}
-
+	
+	// Essaye de gagner. Retourne true si l'ordi peut gagner en jouant dans cette position (i,j).
 	private boolean tryToWin(int i, int j){
-		// essayer de gagner
-		board.getButton(i, j).setText("x");
 		
-		Integer[] counters = new Integer[4];
+		board.getButton(i, j).setText("x"); // On met un x dans chaque bouton pour qu'il soit compté dans les compteurs 
+		
+		Integer[] counters = new Integer[4]; // C'est un tableau dont chaque case represent un compteur des 4 directions possibles
 		counters[0] = board.counterLine(i, j);
 		counters[1] = board.counterColumn(i, j);
 		counters[2] = board.counterDiagonal(i, j);
 		counters[3] = board.counterAntiDiagonal(i, j);
-		int maxCounter = Collections.max(Arrays.asList(counters));
+		int maxCounter = Collections.max(Arrays.asList(counters)); // Le max counter est la solution plus longue
 		
-		updateMaxSolution(maxCounter, i, j);
+		updateMaxSolution(maxCounter, i, j); // On actualise la position de la solution maximale
 		
-		//On remet la case à vide
-		board.getButton(i, j).setText("");
+		board.getButton(i, j).setText(""); //On remet la case à vide
 							
 		if (maxCounter >= board.getObjective()) {
 			return true;
@@ -139,72 +140,71 @@ public class Computer{
 			return false;
 		}
 	}
-	 
+	
+	// Empeche l'autre joueur de gagner. Retourne true si l'ordi peut perdre si l'autre joueur joue dans cette position (i,j).
 	private boolean stopOpponent(int i, int j){
-		// prevenir l'autre joueur de gagner
-		boolean preventLosing = false;
-		board.getButton(i, j).setText("o");
+		boolean possibleLoss = false;
+		board.getButton(i, j).setText("o"); // On met un o aussi pour que la case soit compté par le compteur
 		int objective = board.getObjective();
 		
+		//  Evite l'autre joueur de gagner dans ce tour
 		if (board.counterLine(i, j) >= objective || board.counterColumn(i, j) >= objective || board.counterDiagonal(i, j) >= objective || board.counterAntiDiagonal(i, j) >= objective) {
-			// retourne la position qui evite l'autre joueur de gagner dans ce tour
-			preventLosing = true;
+			
+			possibleLoss = true;
 		}
-		//Retourne la position qui empeche l'autre joueur d'arriver à mettre 4 pions ensemble avec extremités libres pour qu'il ne gagne pas dans le prochain tour
+		// Empeche l'autre joueur d'arriver à mettre 4 pions ensemble avec 2 extremités libres (pour qu'il ne gagne pas dans le prochain tour)
 		else {
 			if (board.counterLine(i, j) == objective - 1 && emptyExtremitiesLine(i, j) == 2) {
-				preventLosing = true;
+				possibleLoss = true;
 			}
 			if (board.counterColumn(i, j) == objective - 1 && emptyExtremitiesColumn(i, j) == 2) {
-				preventLosing = true;
+				possibleLoss = true;
 			}
 			if (board.counterDiagonal(i, j) == objective - 1 && emptyExtremitiesDiagonal(i, j) == 2) {				
-				preventLosing = true;
+				possibleLoss = true;
 			}	
 			if (board.counterAntiDiagonal(i, j) == objective - 1 && emptyExtremitiesAntiDiagonal(i, j) == 2) {
-				preventLosing = true;				
+				possibleLoss = true;				
 			}
 		}
 		//On remet la case à vide
 		board.getButton(i, j).setText("");
 		
-		return preventLosing;
+		return possibleLoss;
 	}
-
-	public int[] computerPlays(boolean easy){
+	
+	//Retourne la position que l'ordinateur doit jouer 
+	public int[] computerPlays(){
+		// On réinitialise la solution maximale
+		indexMaxSolution = new int[] {0, 0};  
+		lengthMaxSolution=0;
 		
-		if (easy == true) { // Si on joue le mode facile (positions aléatoires)
-			return new int[] {0, 0};
-		}
-		else {
-			// reset maxSolution found
-			indexMaxSolution = new int[] {0, 0}; 
-			lengthMaxSolution=0;
-			
-			int N = board.getBoardSize();
-			for (int i=0; i < N; i++) {
-				for (int j=0; j < N; j++) {
+		int N = board.getBoardSize();
+		for (int i=0; i < N; i++) {
+			for (int j=0; j < N; j++) {
+				
+				// On verifie d'abbord si la case est vide
+				if (board.getButton(i, j).getText() == "") {
 					
-					if (board.getButton(i, j).getText() == "") {
-						
-						if (tryToWin(i, j)) {
+					//1- on essaye de gagner
+					if (tryToWin(i, j)) {
+						return new int[] {i, j};
+					}
+					else {
+					//2- si on peut pas gagner, on empeche l'autre joueur de gagner	
+						if (stopOpponent(i, j)) {
 							return new int[] {i, j};
-						}
-						else {
-							// prevenir l'autre joueur de gagner 
-							if (stopOpponent(i, j)) {
-								return new int[] {i, j};
-							}							
-						}
-							
-					}	
-				}		
-			}	
-			
-			// grandir la plus grande solution de "x"
-			return indexMaxSolution;
-		}
+						}							
+					}
+						
+				}	
+			}		
+		}	
+		
+		// 3-Si l'autre joueur n'est pas proche de gagner, on grandi la plus grande solution de l'ordinateur
+		return indexMaxSolution;
 	}
+	
 }
 
 

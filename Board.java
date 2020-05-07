@@ -106,14 +106,11 @@ public class Board {
 	}
 	
 	// Vérifie si on a 5 pions alignés dans une diagonale/antidiagonale. (i et j obtenus avec le hashmap des positions des boutons) 
-	//L répresente la longueur qu'on cherche
 	public int counterDiagonal(int i, int j){
 		int counter=0;
 		int k=0;
 		String player = board[i][j].getText();
 		
-		// Diagonales:
-		// On doit reinitialiser les variables 
 		while( (i+k)<N && (j+k)<N && board[i+k][j+k].getText() == player){
 			counter++;
 			k++;
@@ -126,12 +123,13 @@ public class Board {
 		return counter;	
 	}
 	
+	// Antidiagonal:
 	public int counterAntiDiagonal(int i, int j) {
 		int counter=0;
 		int k=0;
 		String player = board[i][j].getText();
 		
-		// Antidiagonales:
+		
 		while( (i+k)<N && (j-k)>=0 && board[i+k][j-k].getText() == player){
 			counter++;
 			k++;
