@@ -3,7 +3,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 
-public class fenetreAccueil extends JFrame {
+public class FenetreAccueil extends JFrame {
     private JFrame window = new JFrame();
    
     //pour la saisie du Joueur 1
@@ -25,7 +25,7 @@ public class fenetreAccueil extends JFrame {
     private JTextField champSaisieOrdi;
     private JButton btnOrdi;
         
-    public fenetreAccueil(){
+    public FenetreAccueil(){
         super("Jeu Morpion");
 		
 		// ====== Instanciation des widgets de la fenetre entree =====
