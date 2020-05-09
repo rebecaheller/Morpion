@@ -136,12 +136,20 @@ public class MorpionInterface extends JFrame{
 	}
 	
 	public void resetGame(){
-		currentPlayer = "x";
-		nameCurrentPlayer=nom1;
-		board.resetBoard(N);
-		support.revalidate();
-		support.repaint();
-		updatePane();
+		
+		if(currentPlayer == "x"){
+			nameCurrentPlayer=nom2;
+			board.resetBoard(N);
+			support.revalidate();
+			support.repaint();
+			updatePane();
+		}else{
+			nameCurrentPlayer=nom2;
+			board.resetBoard(N);
+			support.revalidate();
+			support.repaint();
+			updatePane();	
+		}
 	}
 	
 	public boolean doesComputerPlay(){
