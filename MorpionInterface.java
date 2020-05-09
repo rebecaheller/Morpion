@@ -144,7 +144,6 @@ public class MorpionInterface extends JFrame{
 			support.repaint();
 			updatePane();
 		}else{
-			nameCurrentPlayer=nom2;
 			board.resetBoard(N);
 			support.revalidate();
 			support.repaint();
