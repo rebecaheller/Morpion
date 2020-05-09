@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class ListenerMenu implements ActionListener{
 	private MorpionInterface inter;
-	private FenetreAccueil fen;
+	private fenetreMorpion fen;
 
 	public ListenerMenu(MorpionInterface inter){
 		this.inter = inter;

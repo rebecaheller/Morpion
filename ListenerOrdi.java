@@ -5,12 +5,12 @@ import java.awt.*;
 
 public class ListenerOrdi implements ActionListener{
 
-	private FenetreAccueil fen;
+	private fenetreAccueil fen;
 	private String nomUniqueJoueur;
 	private String ordinateur;
 	private MorpionInterface inter;
 	
-	public ListenerOrdi(FenetreAccueil fen){
+	public ListenerOrdi(fenetreAccueil fen){
 		this.fen = fen;
 	}
 	

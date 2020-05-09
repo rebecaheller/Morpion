@@ -4,11 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ListenerAccueil implements ActionListener{
-	private FenetreAccueil fen;
+	private fenetreAccueil fen;
 	private String nomjoueur1;
 	private String nomjoueur2;
 	
-	public ListenerAccueil(FenetreAccueil fen){
+	public ListenerAccueil(fenetreAccueil fen){
 		this.fen = fen;
 	}
 	
