@@ -5,7 +5,7 @@ import java.util.HashMap;
 public class MorpionInterface extends JFrame{
 	
 	// Attributs
-	private final int objective=5; // nombre de pions qu'il faut aligner pour gagner
+	private final int OBJECTIVE=5; // nombre de pions qu'il faut aligner pour gagner
 	private final int N=5; //taille initiale de la matrice
 	public Board board; // On declare comme public pour eviter d'utiliser des getters
 	public Computer computer;
@@ -86,7 +86,7 @@ public class MorpionInterface extends JFrame{
 		this.add(support);
 		setVisible(true);
 		
-		board = new Board(N, objective, this, singlePlayer);
+		board = new Board(N, OBJECTIVE, this, singlePlayer);
 		updatePane();
 		
 		if (singlePlayer) {
@@ -137,8 +137,8 @@ public class MorpionInterface extends JFrame{
 	
 	public void resetGame(){
 		
-		currentPlayer = "x";
-		nameCurrentPlayer=nom1;
+		//currentPlayer = "x";
+		//nameCurrentPlayer=nom1;
 		
 		if(nom1.equals("Ordinateur")){
 			switchNames();

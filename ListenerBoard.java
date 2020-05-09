@@ -24,6 +24,7 @@ public class ListenerBoard implements ActionListener{
 			boolean gameEnded = play(inter.getCurrentPlayer(), i, j); 
 			
 			if(gameEnded){
+				inter.switchPlayers();
 				inter.resetGame();
 				return;
 			}

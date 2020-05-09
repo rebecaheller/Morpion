@@ -10,14 +10,14 @@ public class Board {
 	private HashMap<JButton, int[]> buttonIndexMap; // Hashmap de boutons qui a comme value (valeur) les indices des positions des boutons
 	private int N;
 	private boolean singlePlayer; 
-	private final int objective; // Nombre de pions qu'il faut aligner pour gagner
-	private final MorpionInterface inter;
+	private final int OBJECTIVE; // Nombre de pions qu'il faut aligner pour gagner
+	private final MorpionInterface INTER;
 		
 	// Constructeur
 	public Board(int N, int objective, MorpionInterface inter, boolean singlePlayer) {
 		this.N = N;
-		this.objective = objective;
-		this.inter = inter;
+		this.OBJECTIVE = objective;
+		this.INTER = inter;
 		this.singlePlayer = singlePlayer;
 		buttonIndexMap = new HashMap<JButton, int[]>();
 		initializeBoard();
@@ -33,7 +33,7 @@ public class Board {
 				btn.setFont(new Font(Font.SANS_SERIF,Font.BOLD, 350/N)); //setFont définit la police
 				board[i][j] = btn;
 				buttonIndexMap.put(btn, new int[] {i, j});
-				btn.addActionListener(new ListenerBoard(inter));
+				btn.addActionListener(new ListenerBoard(INTER));
 			}
 		}
 		// Si on joue contre l'ordinateur, il est le premier à jouer. Alors on initialize le tableau avec le pion X au milieu (position stratégique)
@@ -62,7 +62,7 @@ public class Board {
 	}
 	
 	public int getObjective() {
-		return objective;
+		return OBJECTIVE;
 	}
 	
 	public int[] getButtonPosition(JButton btn) {
@@ -145,7 +145,7 @@ public class Board {
 	// On vérifie si le jeu est fini: si il y a 5 pions sur une ligne, colonne, diagonale ou antidiagonale 
 	public boolean isGameOver(int i, int j) {
 
-		if (counterColumn(i, j) >= objective || counterLine(i, j) >= objective || counterDiagonal(i, j) >= objective || counterAntiDiagonal(i, j) >= objective ) {		
+		if (counterColumn(i, j) >= OBJECTIVE || counterLine(i, j) >= OBJECTIVE || counterDiagonal(i, j) >= OBJECTIVE || counterAntiDiagonal(i, j) >= OBJECTIVE ) {		
 			return true;
 		}
 		else{
@@ -168,7 +168,7 @@ public class Board {
 			btn.setFont(new Font(Font.SANS_SERIF,Font.BOLD, 350/N + 10));
 			copy[i][j] = btn;
 			buttonIndexMap.put(btn, new int[] {i, j});
-			btn.addActionListener(new ListenerBoard(inter));
+			btn.addActionListener(new ListenerBoard(INTER));
 		}
 		
 		// Initialise la dernière ligne du tableau avec boutons vides (nouvelle ligne). On fixe i et on varie j.
@@ -178,7 +178,7 @@ public class Board {
 			btn.setFont(new Font(Font.SANS_SERIF,Font.BOLD,350/N +10));
 			copy[i][j] = btn;
 			buttonIndexMap.put(btn, new int[] {i, j});
-			btn.addActionListener(new ListenerBoard(inter));
+			btn.addActionListener(new ListenerBoard(INTER));
 		}
 		
 		// Initialise la première colonne du tableau avec boutons vides (nouvelle colonne). On fixe j et on varie i.
@@ -188,7 +188,7 @@ public class Board {
 			btn.setFont(new Font(Font.SANS_SERIF,Font.BOLD,350/N +10));
 			copy[i][j] = btn;
 			buttonIndexMap.put(btn, new int[] {i, j});
-			btn.addActionListener(new ListenerBoard(inter));
+			btn.addActionListener(new ListenerBoard(INTER));
 		}
 		
 		// Initialise la dernière colonne du tableau avec boutons vides (nouvelle colonne). On fixe j et on varie i.
@@ -198,7 +198,7 @@ public class Board {
 			btn.setFont(new Font(Font.SANS_SERIF,Font.BOLD,350/N +10));
 			copy[i][j] = btn;
 			buttonIndexMap.put(btn, new int[] {i, j});
-			btn.addActionListener(new ListenerBoard(inter));
+			btn.addActionListener(new ListenerBoard(INTER));
 		}
 		
 		// Enregistre l'information de l'ancien tableau, ça commence dans la position 1,1 pour ne pas perdre les nouveux ajouts	
