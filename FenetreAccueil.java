@@ -29,22 +29,23 @@ public class FenetreAccueil extends JFrame {
         super("Jeu Morpion");
 		
 		// ====== Instanciation des widgets de la fenetre entree =====
-        labelJoueur1 = new JLabel("Joueur 1 : ");
+        labelJoueur1 = new JLabel("<html><font size=5><font color=gray>Joueur 1 : </font></font>");
         champSaisieJoueur1 = new JTextField("",10);
 
-        labelJoueur2 = new JLabel("Joueur 2 : ");
+        labelJoueur2 = new JLabel("<html><font size=5><font color=gray>Joueur 2 : </font></font>");
         champSaisieJoueur2 = new JTextField("",10);
 
 		
         labelBut = new JLabel("<html><center><font size=25>C'est un Morpion infini! Quand vous vous rapprochez des bords, le tableau augmente <br>"+"<B><U>But:</B></U>"+" Aligner "+"<font color=red>5 </font>"+"pions</font>",JLabel.CENTER);
         
-        btnJouer = new JButton("Jouer a deux!");
+        btnJouer = new JButton("<html><font size=4>Jouer a deux!</font>");
         btnJouer.addActionListener(new ListenerAccueil(this));
         
-        labelOrdi = new JLabel("Joueur unique: ");
+        labelOrdi = new JLabel("<html><font size=5><font color=gray>Joueur unique: </font></font>");
         champSaisieOrdi = new JTextField("",10);
-        btnOrdi = new JButton("Jouer contre l'ordinateur!");
+        btnOrdi = new JButton("<html><font size=4>Jouer contre l'ordinateur!</font>");
         btnOrdi.addActionListener(new ListenerOrdi(this));
+        
         
         // ====== Organisation structurelle ======
           

@@ -53,11 +53,11 @@ public class MorpionInterface extends JFrame{
 		leftPanel = new JPanel();
 		leftPanel.setPreferredSize(new Dimension(100, 100));
 		
-		menu = new JButton("Menu");
+		menu = new JButton("<html><font size=6>Menu</font>");
 		menu.addActionListener(new ListenerMenu(this));
-		newGame = new JButton("New Game");
+		newGame = new JButton("<html><font size=6>New Game</font>");
 		newGame.addActionListener(new ListenerNewGame(this));
-		quit = new JButton("Quit");
+		quit = new JButton("<html><font size=6>Quit</font>");
 		quit.addActionListener(new ListenerQuit(this));
 		
 		leftLabel= new JLabel("  ");
@@ -71,7 +71,7 @@ public class MorpionInterface extends JFrame{
 		southPanel.add(newGame);
 		southPanel.add(quit);
 		southPanel.add(menu);
-		playerLabel = new JLabel("Player: "+name1);
+		playerLabel = new JLabel("<html><center><font size=15><B><U><font color=red>Player:</U> </font> "+nom1+"</B></font>");
 		northPanel.add(playerLabel);
 		support.add(northPanel, BorderLayout.NORTH);
 		support.add(southPanel, BorderLayout.SOUTH);
@@ -102,12 +102,12 @@ public class MorpionInterface extends JFrame{
 	public void switchPlayers(){
 		if(currentPlayer.equals("x")){
 			currentPlayer="o";
-			playerLabel.setText("Player: "+nom2);
+			playerLabel.setText("<html><center><font size=15><B><U><font color=red>Player:</U> </font> "+nom2+"</B></font>");
 			nameCurrentPlayer=nom2;
 		}
 		else {
 			currentPlayer="x";
-			playerLabel.setText("Player: "+nom1);
+			playerLabel.setText("<html><center><font size=15><B><U><font color=red>Player:</U> </font> "+nom1+"</B></font>");
 			nameCurrentPlayer=nom1;
 		}
 	}
@@ -137,7 +137,9 @@ public class MorpionInterface extends JFrame{
 	
 	public void resetGame(){
 		
-	
+		//currentPlayer = "x";
+		//nameCurrentPlayer=nom1;
+		
 		if(nom1.equals("Ordinateur")){
 			switchNames();
 			switchPlayers();
