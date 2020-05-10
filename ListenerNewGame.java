@@ -11,7 +11,19 @@ public class ListenerNewGame implements ActionListener{
 	}
 	
 	public void actionPerformed(ActionEvent e){
+		
+		if(inter.doesComputerPlay()) {
+			
+			String nom=inter.getPlayerName();
+			
+			if(nom!="Ordinateur"){
+				inter.switchNames();
+				inter.switchPlayers();
+			}
+		}
+			
 		inter.resetGame();
+	
 	}
     
 }
