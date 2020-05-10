@@ -36,7 +36,7 @@ public class FenetreAccueil extends JFrame {
         champSaisieJoueur2 = new JTextField("",10);
 
 		
-        labelBut = new JLabel("<html><center><font size=25>C'est un Morpion infini! Quand vous vous rapprochez des bords, le tableau augmente <br>"+"<B><U>But:</B></U>"+" Aligner "+"<font color=red>5 </font>"+"pions</font>",JLabel.CENTER);
+        labelBut = new JLabel("<html><center><font size=25>C'est un Morpion infini!  <br>Quand vous vous rapprochez des bords, le tableau augmente <br>"+"<B><U>But:</B></U>"+" Aligner "+"<font color=red>5 </font>"+"pions</font>",JLabel.CENTER);
         
         btnJouer = new JButton("<html><font size=4>Jouer a deux!</font>");
         btnJouer.addActionListener(new ListenerAccueil(this));
