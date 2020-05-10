@@ -15,7 +15,7 @@ public class ListenerNewGame implements ActionListener{
 		if(inter.doesComputerPlay()) {
 			
 			String nom=inter.getPlayerName();
-			
+			//comme ça meme si on clique plusieurs fois sur le bouton NewGame cela n'alterne pas qui joue (toujours le player qui pose le 1er pion)
 			if(nom!="Ordinateur"){
 				inter.switchNames();
 				inter.switchPlayers();
