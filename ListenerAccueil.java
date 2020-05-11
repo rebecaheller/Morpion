@@ -21,7 +21,10 @@ public class ListenerAccueil implements ActionListener{
 		
 		if( nomJoueur1==null || nomJoueur1.equals("")|| nomJoueur2==null || nomJoueur2.equals("")){ //on met condition "" car au départ la case n'est jamais null
 			JOptionPane.showMessageDialog(null, "Inserez le nom des joueurs!");
-		
+			
+		}else if(nomJoueur1.equals(nomJoueur2)){
+			JOptionPane.showMessageDialog(null, "Le nom des joueurs doit etre different!");
+			
 		}else{
 			new MorpionInterface(nomJoueur1, nomJoueur2);
 		}
