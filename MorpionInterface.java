@@ -136,9 +136,7 @@ public class MorpionInterface extends JFrame{
 	}
 	
 	public void resetGame(){
-		
-		//currentPlayer = "x";
-		//nameCurrentPlayer=nom1;
+	
 		
 		if(nom1.equals("Ordinateur")){
 			switchNames();
