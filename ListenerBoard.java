@@ -56,8 +56,15 @@ public class ListenerBoard implements ActionListener{
 		
 		// On vérifie si quelqu'un a gagné après l'appui du bouton
 		if (inter.board.isGameOver(i, j)) {
-			JOptionPane.showMessageDialog(null, inter.getPlayerName() + " a gagne!");
-			return true;
+			String nom=inter.getPlayerName();
+			
+			if(inter.doesComputerPlay() && nom=="Ordinateur"){
+				JOptionPane.showMessageDialog(null, "L'ordinateur a gagne!");
+				return true;
+			}else{
+				JOptionPane.showMessageDialog(null, nom + " a gagne!");
+				return true;
+			}
 		}							
 		
 		//On vérifie si on est sur l'un des bords et si personne n'a gagné. Alors on augmente le tableau
